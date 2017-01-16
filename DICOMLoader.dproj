@@ -326,8 +326,6 @@
         <DCCReference Include="_LIBRARY\LUXOPHIA\LUX\LUX.D3.pas"/>
         <DCCReference Include="_LIBRARY\LUXOPHIA\LUX\LUX.D3.V4.pas"/>
         <DCCReference Include="_LIBRARY\LUXOPHIA\LUX\LUX.D4.M4.pas"/>
-        <DCCReference Include="_LIBRARY\LUXOPHIA\LUX.Graph\LUX.Graph.Tree.pas"/>
-        <DCCReference Include="_LIBRARY\LUXOPHIA\LUX.Graph\LUX.Graph.pas"/>
         <DCCReference Include="_LIBRARY\LUXOPHIA\LUX.DICOM\LUX.DICOM.VRs.pas"/>
         <DCCReference Include="_LIBRARY\LUXOPHIA\LUX.DICOM\LUX.DICOM.pas"/>
         <DCCReference Include="_LIBRARY\LUXOPHIA\LUX.DICOM\LUX.DICOM.Tags.pas"/>

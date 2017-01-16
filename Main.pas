@@ -7,7 +7,7 @@ uses
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs,
   System.Rtti,
   FMX.Grid.Style, FMX.Grid, FMX.Controls.Presentation, FMX.ScrollBox,
-  LUX.DICOM, LUX.DICOM.VRs;
+  LUX.DICOM, LUX.DICOM.Tags, LUX.DICOM.VRs;
 
 type
   TForm1 = class(TForm)
@@ -44,14 +44,17 @@ implementation //###############################################################
 procedure TForm1.ShowData;
 var
    I :Integer;
+   Ts :TArray<TdcmTag>;
 begin
      with StringGrid1 do
      begin
-          RowCount := _DICOM.ChildsN;
+          RowCount := _DICOM.Count;
 
-          for I := 0 to _DICOM.ChildsN-1 do
+          Ts := _DICOM.TagsToArray;
+
+          for I := 0 to High( Ts ) do
           begin
-               with _DICOM.Childs[ I ] do
+               with _DICOM[ Ts[ I ] ] do
                begin
                     Cells[ 0, I ] := (I+1).ToString;
                     Cells[ 1, I ] := Tag.Grup.ToString;
