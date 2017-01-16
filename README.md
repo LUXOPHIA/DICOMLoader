@@ -1,10 +1,12 @@
 # DICOMLoader
 
-医用画像のフォーマット「DICOM」を読み込む方法。
+医用画像のフォーマット「DICOM」を読み込む方法。4,200種類以上の公式タグに対応。
 
 ![](https://bytebucket.org/LUXOPHIA/dicomloader/raw/32bbd7b183428e0e824fb0d9acb61254f6bbf40b/--------/_SCREENSHOT/DICOMLoader.png)
 
-----
+||
+|:-:|
+|[![Delphi Starter](http://img.en25.com/EloquaImages/clients/Embarcadero/%7B063f1eec-64a6-4c19-840f-9b59d407c914%7D_dx-starter-bn159.png)](https://www.embarcadero.com/jp/products/delphi/starter)|
 
 * [The DICOM Standard](http://dicom.nema.org/standard.html)
     * [Part 5: Data Structures and Encoding](http://dicom.nema.org/medical/dicom/current/output/html/part05.html)
