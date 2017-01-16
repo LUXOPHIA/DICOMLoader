@@ -10,9 +10,9 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 
      //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【クラス】
 
-     //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TDICOMElems7FE0
+     //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TdcmGrup7FE0
 
-     TDICOMElems7FE0 = class( TDICOMElems )
+     TdcmGrup7FE0 = class( TdcmGrup )
      private
      protected
      public
@@ -31,7 +31,7 @@ implementation //###############################################################
 
 //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【クラス】
 
-//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TDICOMElems7FE0
+//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TdcmGrup7FE0
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& private
 
@@ -39,18 +39,18 @@ implementation //###############################################################
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& public
 
-constructor TDICOMElems7FE0.Create;
+constructor TdcmGrup7FE0.Create;
 begin
      inherited;
 
      // http://dicom.nema.org/medical/dicom/current/output/html/part06.html#chapter_6
      // 6 Registry of DICOM Data Elements
-     Add( $0008, TKindVR.vrOF, 'Float Pixel Data' );
-     Add( $0009, TKindVR.vrOD, 'Double Float Pixel Data' );
-     Add( $0010, TKindVR.vrOW, 'Pixel Data' );  // OB or OW
-     Add( $0020, TKindVR.vrOW, 'Coefficients SDVN' );
-     Add( $0030, TKindVR.vrOW, 'Coefficients SDHN' );
-     Add( $0040, TKindVR.vrOW, 'Coefficients SDDN' );
+     Add( $0008, [TTypeVR.vrOF], 'Float Pixel Data' );
+     Add( $0009, [TTypeVR.vrOD], 'Double Float Pixel Data' );
+     Add( $0010, [TTypeVR.vrOB,TTypeVR.vrOW], 'Pixel Data' );
+     Add( $0020, [TTypeVR.vrOW], 'Coefficients SDVN' );
+     Add( $0030, [TTypeVR.vrOW], 'Coefficients SDHN' );
+     Add( $0040, [TTypeVR.vrOW], 'Coefficients SDDN' );
 end;
 
 //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【ルーチン】

@@ -10,9 +10,9 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 
      //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【クラス】
 
-     //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TDICOMElems2100
+     //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TdcmGrup2100
 
-     TDICOMElems2100 = class( TDICOMElems )
+     TdcmGrup2100 = class( TdcmGrup )
      private
      protected
      public
@@ -31,7 +31,7 @@ implementation //###############################################################
 
 //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【クラス】
 
-//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TDICOMElems2100
+//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TdcmGrup2100
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& private
 
@@ -39,22 +39,22 @@ implementation //###############################################################
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& public
 
-constructor TDICOMElems2100.Create;
+constructor TdcmGrup2100.Create;
 begin
      inherited;
 
      // http://dicom.nema.org/medical/dicom/current/output/html/part06.html#chapter_6
      // 6 Registry of DICOM Data Elements
-     Add( $0010, TKindVR.vrSH, 'Print Job ID' );
-     Add( $0020, TKindVR.vrCS, 'Execution Status' );
-     Add( $0030, TKindVR.vrCS, 'Execution Status Info' );
-     Add( $0040, TKindVR.vrDA, 'Creation Date' );
-     Add( $0050, TKindVR.vrTM, 'Creation Time' );
-     Add( $0070, TKindVR.vrAE, 'Originator' );
-     Add( $0140, TKindVR.vrAE, 'Destination AE' );
-     Add( $0160, TKindVR.vrSH, 'Owner ID' );
-     Add( $0170, TKindVR.vrIS, 'Number of Films' );
-     Add( $0500, TKindVR.vrSQ, 'Referenced Print Job Sequence (Pull Stored Print)' );
+     Add( $0010, [TTypeVR.vrSH], 'Print Job ID' );
+     Add( $0020, [TTypeVR.vrCS], 'Execution Status' );
+     Add( $0030, [TTypeVR.vrCS], 'Execution Status Info' );
+     Add( $0040, [TTypeVR.vrDA], 'Creation Date' );
+     Add( $0050, [TTypeVR.vrTM], 'Creation Time' );
+     Add( $0070, [TTypeVR.vrAE], 'Originator' );
+     Add( $0140, [TTypeVR.vrAE], 'Destination AE' );
+     Add( $0160, [TTypeVR.vrSH], 'Owner ID' );
+     Add( $0170, [TTypeVR.vrIS], 'Number of Films' );
+     Add( $0500, [TTypeVR.vrSQ], 'Referenced Print Job Sequence (Pull Stored Print)' );
 end;
 
 //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【ルーチン】

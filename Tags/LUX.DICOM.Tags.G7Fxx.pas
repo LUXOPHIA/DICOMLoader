@@ -10,9 +10,9 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 
      //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【クラス】
 
-     //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TDICOMElems7Fxx
+     //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TdcmGrup7Fxx
 
-     TDICOMElems7Fxx = class( TDICOMElems )
+     TdcmGrup7Fxx = class( TdcmGrup )
      private
      protected
      public
@@ -31,7 +31,7 @@ implementation //###############################################################
 
 //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【クラス】
 
-//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TDICOMElems7Fxx
+//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TdcmGrup7Fxx
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& private
 
@@ -39,17 +39,17 @@ implementation //###############################################################
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& public
 
-constructor TDICOMElems7Fxx.Create;
+constructor TdcmGrup7Fxx.Create;
 begin
      inherited;
 
      // http://dicom.nema.org/medical/dicom/current/output/html/part06.html#chapter_6
      // 6 Registry of DICOM Data Elements
-     Add( $0010, TKindVR.vrOBOW, 'Variable Pixel Data' );
-     Add( $0011, TKindVR.vrUS, 'Variable Next Data Group' );
-     Add( $0020, TKindVR.vrOW, 'Variable Coefficients SDVN' );
-     Add( $0030, TKindVR.vrOW, 'Variable Coefficients SDHN' );
-     Add( $0040, TKindVR.vrOW, 'Variable Coefficients SDDN' );
+     Add( $0010, [TTypeVR.vrOB,TTypeVR.vrOW], 'Variable Pixel Data' );
+     Add( $0011, [TTypeVR.vrUS], 'Variable Next Data Group' );
+     Add( $0020, [TTypeVR.vrOW], 'Variable Coefficients SDVN' );
+     Add( $0030, [TTypeVR.vrOW], 'Variable Coefficients SDHN' );
+     Add( $0040, [TTypeVR.vrOW], 'Variable Coefficients SDDN' );
 end;
 
 //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【ルーチン】

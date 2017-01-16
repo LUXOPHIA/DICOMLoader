@@ -10,9 +10,9 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 
      //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【クラス】
 
-     //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TDICOMElems5400
+     //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TdcmGrup5400
 
-     TDICOMElems5400 = class( TDICOMElems )
+     TdcmGrup5400 = class( TdcmGrup )
      private
      protected
      public
@@ -31,7 +31,7 @@ implementation //###############################################################
 
 //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【クラス】
 
-//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TDICOMElems5400
+//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TdcmGrup5400
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& private
 
@@ -39,19 +39,19 @@ implementation //###############################################################
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& public
 
-constructor TDICOMElems5400.Create;
+constructor TdcmGrup5400.Create;
 begin
      inherited;
 
      // http://dicom.nema.org/medical/dicom/current/output/html/part06.html#chapter_6
      // 6 Registry of DICOM Data Elements
-     Add( $0100, TKindVR.vrSQ, 'Waveform Sequence' );
-     Add( $0110, TKindVR.vrOBOW, 'Channel Minimum Value' );
-     Add( $0112, TKindVR.vrOBOW, 'Channel Maximum Value' );
-     Add( $1004, TKindVR.vrUS, 'Waveform Bits Allocated' );
-     Add( $1006, TKindVR.vrCS, 'Waveform Sample Interpretation' );
-     Add( $100A, TKindVR.vrOBOW, 'Waveform Padding Value' );
-     Add( $1010, TKindVR.vrOBOW, 'Waveform Data' );
+     Add( $0100, [TTypeVR.vrSQ], 'Waveform Sequence' );
+     Add( $0110, [TTypeVR.vrOB,TTypeVR.vrOW], 'Channel Minimum Value' );
+     Add( $0112, [TTypeVR.vrOB,TTypeVR.vrOW], 'Channel Maximum Value' );
+     Add( $1004, [TTypeVR.vrUS], 'Waveform Bits Allocated' );
+     Add( $1006, [TTypeVR.vrCS], 'Waveform Sample Interpretation' );
+     Add( $100A, [TTypeVR.vrOB,TTypeVR.vrOW], 'Waveform Padding Value' );
+     Add( $1010, [TTypeVR.vrOB,TTypeVR.vrOW], 'Waveform Data' );
 end;
 
 //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【ルーチン】
