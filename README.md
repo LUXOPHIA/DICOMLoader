@@ -4,9 +4,7 @@
 
 ![](https://bytebucket.org/LUXOPHIA/dicomloader/raw/32bbd7b183428e0e824fb0d9acb61254f6bbf40b/--------/_SCREENSHOT/DICOMLoader.png)
 
-||
-|:-:|
-|[![Delphi Starter](http://img.en25.com/EloquaImages/clients/Embarcadero/%7B063f1eec-64a6-4c19-840f-9b59d407c914%7D_dx-starter-bn159.png)](https://www.embarcadero.com/jp/products/delphi/starter)|
+----
 
 * [The DICOM Standard](http://dicom.nema.org/standard.html)
     * [Part 5: Data Structures and Encoding](http://dicom.nema.org/medical/dicom/current/output/html/part05.html)
@@ -20,3 +18,5 @@
     * [Part 7: Message Exchange](http://dicom.nema.org/medical/dicom/current/output/html/part07.html)
         * [E.1. Registry of DICOM Command Elements](http://dicom.nema.org/medical/dicom/current/output/html/part07.html#sect_E.1)
         * [E.2. Retired Command Fields](http://dicom.nema.org/medical/dicom/current/output/html/part07.html#sect_E.2)
+
+[![Delphi Starter](http://img.en25.com/EloquaImages/clients/Embarcadero/%7B063f1eec-64a6-4c19-840f-9b59d407c914%7D_dx-starter-bn159.png)](https://www.embarcadero.com/jp/products/delphi/starter)
