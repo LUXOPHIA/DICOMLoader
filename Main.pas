@@ -1,6 +1,6 @@
-unit Main;
+Ôªøunit Main;
 
-interface //#################################################################### Å°
+interface //#################################################################### ‚ñ†
 
 uses
   System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
@@ -25,17 +25,17 @@ type
     procedure StringGrid1DragOver(Sender: TObject; const Data: TDragObject; const Point: TPointF; var Operation: TDragOperation);
     procedure StringGrid1DragDrop(Sender: TObject; const Data: TDragObject; const Point: TPointF);
   private
-    { private êÈåæ }
+    { private ÂÆ£Ë®Ä }
     procedure ShowData;
   public
-    { public êÈåæ }
+    { public ÂÆ£Ë®Ä }
     _DICOM :TdcmFile;
   end;
 
 var
   Form1: TForm1;
 
-implementation //############################################################### Å°
+implementation //############################################################### ‚ñ†
 
 {$R *.fmx}
 
@@ -106,4 +106,4 @@ begin
      ShowData;
 end;
 
-end. //######################################################################### Å°
+end. //######################################################################### ‚ñ†
