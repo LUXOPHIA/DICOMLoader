@@ -56,12 +56,16 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 
      //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TdcmFile
 
-     TdcmFile = class( TDictionary<TdcmTag,TdcmData> )
+     TdcmFile = class( TObjectDictionary<TdcmTag,TdcmData> )
      private
      protected
+       ///// アクセス
+       function GetData( const Grup_,Elem_:THex4 ) :TdcmData;
      public
        constructor Create;
        destructor Destroy; override;
+       ///// プロパティ
+       property Data[ const Grup_,Elem_:THex4 ] :TdcmData read GetData;
        ///// メソッド
        procedure LoadFromFile( const FileName_:String );
        function TagsToArray :TArray<TdcmTag>;
@@ -189,11 +193,16 @@ end;
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& protected
 
+function TdcmFile.GetData( const Grup_,Elem_:THex4 ) :TdcmData;
+begin
+     Result := Items[ TdcmTag.Create( Grup_, Elem_ ) ];
+end;
+
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& public
 
 constructor TdcmFile.Create;
 begin
-     inherited Create;
+     inherited Create( [ doOwnsValues ] );
 
 end;
 

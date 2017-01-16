@@ -27,6 +27,8 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
      public
        Grup :THex4;
        Elem :THex4;
+       /////
+       constructor Create( const Grup_,Elem_:THex4 );
        ///// メソッド
        function ToString :String;
      end;
@@ -59,11 +61,11 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 
      //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TdcmGrup
 
-     TdcmGrup = class( TDictionary<Word,TdcmElem> )
+     TdcmGrup = class( TObjectDictionary<THex4,TdcmElem> )
      private
      protected
        ///// メソッド
-       procedure Add( const Elem_:Word; const Kind_:TKindVR; const Desc_:String );
+       procedure Add( const Elem_:THex4; const Kind_:TKindVR; const Desc_:String );
      public
        constructor Create;
        destructor Destroy; override;
@@ -71,7 +73,7 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 
      //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TdcmBookTag
 
-     TdcmBookTag = class( TDictionary<Word,TdcmGrup> )
+     TdcmBookTag = class( TObjectDictionary<THex4,TdcmGrup> )
      private
      protected
        ///// アクセス
@@ -190,6 +192,12 @@ end;
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& public
 
+constructor TdcmTag.Create( const Grup_,Elem_:THex4 );
+begin
+     Grup := Grup_;
+     Elem := Elem_;
+end;
+
 /////////////////////////////////////////////////////////////////////// メソッド
 
 function TdcmTag.ToString :String;
@@ -239,7 +247,7 @@ end;
 
 /////////////////////////////////////////////////////////////////////// メソッド
 
-procedure TdcmGrup.Add( const Elem_:Word; const Kind_:TKindVR; const Desc_:String );
+procedure TdcmGrup.Add( const Elem_:THex4; const Kind_:TKindVR; const Desc_:String );
 begin
      inherited Add( Elem_, TdcmElem.Create( Kind_, Desc_ ) );
 end;
@@ -248,15 +256,12 @@ end;
 
 constructor TdcmGrup.Create;
 begin
-     inherited Create;
+     inherited Create( [ doOwnsValues ] );
 
 end;
 
 destructor TdcmGrup.Destroy;
-var
-   V :TdcmElem;
 begin
-     for V in Self.Values do V.Free;
 
      inherited;
 end;
@@ -278,7 +283,7 @@ end;
 
 constructor TdcmBookTag.Create;
 begin
-     inherited Create;
+     inherited Create( [ doOwnsValues ] );
 
      Add( $0000, TdcmGrup0000.Create );
      Add( $0002, TdcmGrup0002.Create );
@@ -355,10 +360,7 @@ begin
 end;
 
 destructor TdcmBookTag.Destroy;
-var
-   V :TdcmGrup;
 begin
-     for V in Self.Values do V.Free;
 
      inherited;
 end;
