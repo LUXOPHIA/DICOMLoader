@@ -52,7 +52,7 @@ begin
 
           Ts := _DICOM.TagsToArray;
 
-          for I := 0 to High( Ts ) do
+          for I := 0 to _DICOM.Count-1 do
           begin
                with _DICOM[ Ts[ I ] ] do
                begin
