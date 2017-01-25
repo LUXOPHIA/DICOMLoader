@@ -2,7 +2,9 @@
 
 医用画像フォーマット「[DICOM](https://www.wikiwand.com/ja/DICOM)」を読み込む方法。4,200種類以上の公式タグに対応。
 
-![](https://bytebucket.org/LUXOPHIA/dicomloader/raw/32bbd7b183428e0e824fb0d9acb61254f6bbf40b/--------/_SCREENSHOT/DICOMLoader.png)
+![](https://bytebucket.org/LUXOPHIA/dicomloader/raw/272249186ef7418700f161173e95cf688b1c6758/--------/_SCREENSHOT/DICOMLoader.png)
+
+すべてのエレメントのデータはバイナリ配列（TBytes）として取得されるが、現状、テキスト型データのみ、文字列（AnsiString）として直接入出力が可能。
 
 ----
 
