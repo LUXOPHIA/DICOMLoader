@@ -9,8 +9,8 @@
 ```
 ・TdcmFile
   └・Data[ *, * ] :TdcmData
-      ├・Tag      :TdcmTag   //タグ
-      ├・ExpVR    :TKindVR   //明示的VR（暗黙的な場合は vr00 ）
+      ├・Tag      :TdcmTag   // タグ
+      ├・ExpVR    :TKindVR   // 明示的VR（暗黙的な場合は vr00 ）
       ├・Size     :Cardinal  // Data のバイト数
       ├・Data     :TBytes    // バイト配列
       └・Port     :TdcmPort  // Data を VR に応じて解釈する管理クラス
