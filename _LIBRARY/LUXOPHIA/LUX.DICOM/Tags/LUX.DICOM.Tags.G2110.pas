@@ -16,7 +16,7 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
      private
      protected
      public
-       constructor Create;
+       constructor Create( const Code_:THex4 );
      end;
 
 //const //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【定数】
@@ -39,16 +39,16 @@ implementation //###############################################################
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& public
 
-constructor TdcmGrup2110.Create;
+constructor TdcmGrup2110.Create( const Code_:THex4 );
 begin
      inherited;
 
      // http://dicom.nema.org/medical/dicom/current/output/html/part06.html#chapter_6
      // 6 Registry of DICOM Data Elements
-     Add( $0010, 'PrinterStatus', [TTypeVR.vrCS], 'Printer Status' );
-     Add( $0020, 'PrinterStatusInfo', [TTypeVR.vrCS], 'Printer Status Info' );
-     Add( $0030, 'PrinterName', [TTypeVR.vrLO], 'Printer Name' );
-     Add( $0099, 'PrintQueueID', [TTypeVR.vrSH], 'Print Queue ID' );
+     Add( $0010, 'PrinterStatus', [TKindVR.vrCS], 'Printer Status' );
+     Add( $0020, 'PrinterStatusInfo', [TKindVR.vrCS], 'Printer Status Info' );
+     Add( $0030, 'PrinterName', [TKindVR.vrLO], 'Printer Name' );
+     Add( $0099, 'PrintQueueID', [TKindVR.vrSH], 'Print Queue ID' );
 end;
 
 //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【ルーチン】

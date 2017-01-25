@@ -16,7 +16,7 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
      private
      protected
      public
-       constructor Create;
+       constructor Create( const Code_:THex4 );
      end;
 
 //const //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【定数】
@@ -39,19 +39,19 @@ implementation //###############################################################
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& public
 
-constructor TdcmGrup0060.Create;
+constructor TdcmGrup0060.Create( const Code_:THex4 );
 begin
      inherited;
 
      // http://dicom.nema.org/medical/dicom/current/output/html/part06.html#chapter_6
      // 6 Registry of DICOM Data Elements
-     Add( $3000, 'HistogramSequence', [TTypeVR.vrSQ], 'Histogram Sequence' );
-     Add( $3002, 'HistogramNumberOfBins', [TTypeVR.vrUS], 'Histogram Number of Bins' );
-     Add( $3004, 'HistogramFirstBinValue', [TTypeVR.vrUS,TTypeVR.vrSS], 'Histogram First Bin Value' );
-     Add( $3006, 'HistogramLastBinValue', [TTypeVR.vrUS,TTypeVR.vrSS], 'Histogram Last Bin Value' );
-     Add( $3008, 'HistogramBinWidth', [TTypeVR.vrUS], 'Histogram Bin Width' );
-     Add( $3010, 'HistogramExplanation', [TTypeVR.vrLO], 'Histogram Explanation' );
-     Add( $3020, 'HistogramData', [TTypeVR.vrUL], 'Histogram Data' );
+     Add( $3000, 'HistogramSequence', [TKindVR.vrSQ], 'Histogram Sequence' );
+     Add( $3002, 'HistogramNumberOfBins', [TKindVR.vrUS], 'Histogram Number of Bins' );
+     Add( $3004, 'HistogramFirstBinValue', [TKindVR.vrUS,TKindVR.vrSS], 'Histogram First Bin Value' );
+     Add( $3006, 'HistogramLastBinValue', [TKindVR.vrUS,TKindVR.vrSS], 'Histogram Last Bin Value' );
+     Add( $3008, 'HistogramBinWidth', [TKindVR.vrUS], 'Histogram Bin Width' );
+     Add( $3010, 'HistogramExplanation', [TKindVR.vrLO], 'Histogram Explanation' );
+     Add( $3020, 'HistogramData', [TKindVR.vrUL], 'Histogram Data' );
 end;
 
 //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【ルーチン】

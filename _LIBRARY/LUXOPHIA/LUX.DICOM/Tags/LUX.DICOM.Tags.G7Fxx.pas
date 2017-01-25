@@ -16,7 +16,7 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
      private
      protected
      public
-       constructor Create;
+       constructor Create( const Code_:THex4 );
      end;
 
 //const //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【定数】
@@ -39,17 +39,17 @@ implementation //###############################################################
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& public
 
-constructor TdcmGrup7Fxx.Create;
+constructor TdcmGrup7Fxx.Create( const Code_:THex4 );
 begin
      inherited;
 
      // http://dicom.nema.org/medical/dicom/current/output/html/part06.html#chapter_6
      // 6 Registry of DICOM Data Elements
-     Add( $0010, 'VariablePixelData', [TTypeVR.vrOB,TTypeVR.vrOW], 'Variable Pixel Data' );
-     Add( $0011, 'VariableNextDataGroup', [TTypeVR.vrUS], 'Variable Next Data Group' );
-     Add( $0020, 'VariableCoefficientsSDVN', [TTypeVR.vrOW], 'Variable Coefficients SDVN' );
-     Add( $0030, 'VariableCoefficientsSDHN', [TTypeVR.vrOW], 'Variable Coefficients SDHN' );
-     Add( $0040, 'VariableCoefficientsSDDN', [TTypeVR.vrOW], 'Variable Coefficients SDDN' );
+     Add( $0010, 'VariablePixelData', [TKindVR.vrOB,TKindVR.vrOW], 'Variable Pixel Data' );
+     Add( $0011, 'VariableNextDataGroup', [TKindVR.vrUS], 'Variable Next Data Group' );
+     Add( $0020, 'VariableCoefficientsSDVN', [TKindVR.vrOW], 'Variable Coefficients SDVN' );
+     Add( $0030, 'VariableCoefficientsSDHN', [TKindVR.vrOW], 'Variable Coefficients SDHN' );
+     Add( $0040, 'VariableCoefficientsSDDN', [TKindVR.vrOW], 'Variable Coefficients SDDN' );
 end;
 
 //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【ルーチン】
