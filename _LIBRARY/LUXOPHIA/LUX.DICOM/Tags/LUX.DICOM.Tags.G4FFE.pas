@@ -16,7 +16,7 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
      private
      protected
      public
-       constructor Create;
+       constructor Create( const Code_:THex4 );
      end;
 
 //const //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【定数】
@@ -39,13 +39,13 @@ implementation //###############################################################
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& public
 
-constructor TdcmGrup4FFE.Create;
+constructor TdcmGrup4FFE.Create( const Code_:THex4 );
 begin
      inherited;
 
      // http://dicom.nema.org/medical/dicom/current/output/html/part06.html#chapter_6
      // 6 Registry of DICOM Data Elements
-     Add( $0001, 'MACParametersSequence', [TTypeVR.vrSQ], 'MAC Parameters Sequence' );
+     Add( $0001, 'MACParametersSequence', [TKindVR.vrSQ], 'MAC Parameters Sequence' );
 end;
 
 //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【ルーチン】

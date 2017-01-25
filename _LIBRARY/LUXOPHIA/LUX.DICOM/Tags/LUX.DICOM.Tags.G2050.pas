@@ -16,7 +16,7 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
      private
      protected
      public
-       constructor Create;
+       constructor Create( const Code_:THex4 );
      end;
 
 //const //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【定数】
@@ -39,15 +39,15 @@ implementation //###############################################################
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& public
 
-constructor TdcmGrup2050.Create;
+constructor TdcmGrup2050.Create( const Code_:THex4 );
 begin
      inherited;
 
      // http://dicom.nema.org/medical/dicom/current/output/html/part06.html#chapter_6
      // 6 Registry of DICOM Data Elements
-     Add( $0010, 'PresentationLUTSequence', [TTypeVR.vrSQ], 'Presentation LUT Sequence' );
-     Add( $0020, 'PresentationLUTShape', [TTypeVR.vrCS], 'Presentation LUT Shape' );
-     Add( $0500, 'ReferencedPresentationLUTSequence', [TTypeVR.vrSQ], 'Referenced Presentation LUT Sequence' );
+     Add( $0010, 'PresentationLUTSequence', [TKindVR.vrSQ], 'Presentation LUT Sequence' );
+     Add( $0020, 'PresentationLUTShape', [TKindVR.vrCS], 'Presentation LUT Shape' );
+     Add( $0500, 'ReferencedPresentationLUTSequence', [TKindVR.vrSQ], 'Referenced Presentation LUT Sequence' );
 end;
 
 //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【ルーチン】

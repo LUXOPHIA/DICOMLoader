@@ -16,7 +16,7 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
      private
      protected
      public
-       constructor Create;
+       constructor Create( const Code_:THex4 );
      end;
 
 //const //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【定数】
@@ -39,18 +39,18 @@ implementation //###############################################################
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& public
 
-constructor TdcmGrup7FE0.Create;
+constructor TdcmGrup7FE0.Create( const Code_:THex4 );
 begin
      inherited;
 
      // http://dicom.nema.org/medical/dicom/current/output/html/part06.html#chapter_6
      // 6 Registry of DICOM Data Elements
-     Add( $0008, 'FloatPixelData', [TTypeVR.vrOF], 'Float Pixel Data' );
-     Add( $0009, 'DoubleFloatPixelData', [TTypeVR.vrOD], 'Double Float Pixel Data' );
-     Add( $0010, 'PixelData', [TTypeVR.vrOB,TTypeVR.vrOW], 'Pixel Data' );
-     Add( $0020, 'CoefficientsSDVN', [TTypeVR.vrOW], 'Coefficients SDVN' );
-     Add( $0030, 'CoefficientsSDHN', [TTypeVR.vrOW], 'Coefficients SDHN' );
-     Add( $0040, 'CoefficientsSDDN', [TTypeVR.vrOW], 'Coefficients SDDN' );
+     Add( $0008, 'FloatPixelData', [TKindVR.vrOF], 'Float Pixel Data' );
+     Add( $0009, 'DoubleFloatPixelData', [TKindVR.vrOD], 'Double Float Pixel Data' );
+     Add( $0010, 'PixelData', [TKindVR.vrOB,TKindVR.vrOW], 'Pixel Data' );
+     Add( $0020, 'CoefficientsSDVN', [TKindVR.vrOW], 'Coefficients SDVN' );
+     Add( $0030, 'CoefficientsSDHN', [TKindVR.vrOW], 'Coefficients SDHN' );
+     Add( $0040, 'CoefficientsSDDN', [TKindVR.vrOW], 'Coefficients SDDN' );
 end;
 
 //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【ルーチン】

@@ -16,7 +16,7 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
      private
      protected
      public
-       constructor Create;
+       constructor Create( const Code_:THex4 );
      end;
 
 //const //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【定数】
@@ -39,15 +39,15 @@ implementation //###############################################################
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& public
 
-constructor TdcmGrup2120.Create;
+constructor TdcmGrup2120.Create( const Code_:THex4 );
 begin
      inherited;
 
      // http://dicom.nema.org/medical/dicom/current/output/html/part06.html#chapter_6
      // 6 Registry of DICOM Data Elements
-     Add( $0010, 'QueueStatus', [TTypeVR.vrCS], 'Queue Status' );
-     Add( $0050, 'PrintJobDescriptionSequence', [TTypeVR.vrSQ], 'Print Job Description Sequence' );
-     Add( $0070, 'ReferencedPrintJobSequence', [TTypeVR.vrSQ], 'Referenced Print Job Sequence' );
+     Add( $0010, 'QueueStatus', [TKindVR.vrCS], 'Queue Status' );
+     Add( $0050, 'PrintJobDescriptionSequence', [TKindVR.vrSQ], 'Print Job Description Sequence' );
+     Add( $0070, 'ReferencedPrintJobSequence', [TKindVR.vrSQ], 'Referenced Print Job Sequence' );
 end;
 
 //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【ルーチン】

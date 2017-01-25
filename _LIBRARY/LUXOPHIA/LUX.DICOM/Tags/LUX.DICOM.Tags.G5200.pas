@@ -16,7 +16,7 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
      private
      protected
      public
-       constructor Create;
+       constructor Create( const Code_:THex4 );
      end;
 
 //const //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【定数】
@@ -39,14 +39,14 @@ implementation //###############################################################
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& public
 
-constructor TdcmGrup5200.Create;
+constructor TdcmGrup5200.Create( const Code_:THex4 );
 begin
      inherited;
 
      // http://dicom.nema.org/medical/dicom/current/output/html/part06.html#chapter_6
      // 6 Registry of DICOM Data Elements
-     Add( $9229, 'SharedFunctionalGroupsSequence', [TTypeVR.vrSQ], 'Shared Functional Groups Sequence' );
-     Add( $9230, 'PerFrameFunctionalGroupsSequence', [TTypeVR.vrSQ], 'Per-frame Functional Groups Sequence' );
+     Add( $9229, 'SharedFunctionalGroupsSequence', [TKindVR.vrSQ], 'Shared Functional Groups Sequence' );
+     Add( $9230, 'PerFrameFunctionalGroupsSequence', [TKindVR.vrSQ], 'Per-frame Functional Groups Sequence' );
 end;
 
 //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【ルーチン】
