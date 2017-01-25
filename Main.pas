@@ -12,16 +12,17 @@ uses
 type
   TForm1 = class(TForm)
     StringGrid1: TStringGrid;
-    StringColumn1: TStringColumn;
-    StringColumn2: TStringColumn;
-    StringColumn3: TStringColumn;
-    StringColumn4: TStringColumn;
-    StringColumn5: TStringColumn;
-    StringColumn6: TStringColumn;
-    StringColumn7: TStringColumn;
+      StringColumn1: TStringColumn;
+      StringColumn2: TStringColumn;
+      StringColumn3: TStringColumn;
+      StringColumn4: TStringColumn;
+      StringColumn5: TStringColumn;
+      StringColumn6: TStringColumn;
+      StringColumn7: TStringColumn;
+      StringColumn8: TStringColumn;
+      StringColumn9: TStringColumn;
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
-    procedure FormShow(Sender: TObject);
     procedure StringGrid1DragOver(Sender: TObject; const Data: TDragObject; const Point: TPointF; var Operation: TDragOperation);
     procedure StringGrid1DragDrop(Sender: TObject; const Data: TDragObject; const Point: TPointF);
   private
@@ -54,15 +55,22 @@ begin
 
           for I := 0 to _DICOM.Count-1 do
           begin
+               Cells[ 0, I ] := (I+1).ToString;
+
                with _DICOM[ Ts[ I ] ] do
                begin
-                    Cells[ 0, I ] := (I+1).ToString;
                     Cells[ 1, I ] := Tag.Grup.ToString;
                     Cells[ 2, I ] := Tag.Elem.ToString;
-                    Cells[ 4, I ] := ExpVR.ToString;
-                    Cells[ 5, I ] := Size.ToString;
+
                     Cells[ 3, I ] := OriVR.ToString;
-                    Cells[ 6, I ] := Desc;
+                    Cells[ 4, I ] := ExpVR.ToString;
+
+                    Cells[ 5, I ] := Size.ToString;
+
+                    if Assigned( Port ) then Cells[ 6, I ] := Port.Text
+                                        else Cells[ 6, I ] := '?';
+
+                    Cells[ 7, I ] := Desc;
                end;
           end;
      end;
@@ -89,13 +97,6 @@ begin
 end;
 
 ////////////////////////////////////////////////////////////////////////////////
-
-procedure TForm1.FormShow(Sender: TObject);
-begin
-     StringColumn7.Width := 300;
-end;
-
-//------------------------------------------------------------------------------
 
 procedure TForm1.StringGrid1DragOver(Sender: TObject; const Data: TDragObject; const Point: TPointF; var Operation: TDragOperation);
 begin
