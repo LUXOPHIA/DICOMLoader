@@ -7,14 +7,14 @@
 各のエレメントのデータは、型のないバイト配列として```TdcmData```クラス内に保持されるが、さらにそこへ紐付けられた入出力管理クラス```TdcmPort```を介することで、VR の変数型に応じた入出力が可能（現状テキスト型データのみ対応）。
 
 ```
-・TdcmFile
-  └・Data[ *, * ] :TdcmData
-      ├・Tag      :TdcmTag   // タグ
-      ├・ExpVR    :TKindVR   // 明示的VR（暗黙的な場合は vr00 ）
-      ├・Size     :Cardinal  // Data のバイト数
-      ├・Data     :TBytes    // バイト配列
-      └・Port     :TdcmPort  // Data を VR に応じて解釈する管理クラス
-          └・Text :String    // Data をテキストとして入出力
+・TdcmFile                   // ファイルクラス
+  └・Data[ *, * ] :TdcmData  // エレメントクラス
+     ├・Tag      :TdcmTag    // タグ
+     ├・ExpVR    :TKindVR    // 明示的VR（暗黙的な場合は vr00 ）
+     ├・Size     :Cardinal   // Data のバイト数
+     ├・Data     :TBytes     // バイト配列
+     └・Port     :TdcmPort   // Data を VR に応じて解釈する管理クラス
+        └・Text  :String     // Data をテキストとして入出力
 ```
 
 ----
