@@ -3,7 +3,7 @@
 interface //#################################################################### ■
 
 uses System.Classes, System.SysUtils, System.Generics.Collections, System.Math, System.RegularExpressions,
-     LUX, LUX.DICOM.Tags, LUX.DICOM.VRs, System.AnsiStrings;
+     LUX, LUX.DICOM.Tags, LUX.DICOM.VRs;
 
 type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【型】
 
