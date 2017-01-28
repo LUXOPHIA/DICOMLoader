@@ -16,6 +16,7 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
      private
      protected
      public
+       class procedure AddBook( const Book_:TdcmBookTag );
        constructor Create( const Book_:TdcmBookTag; const Code_:THex4 );
      end;
 
@@ -39,9 +40,22 @@ implementation //###############################################################
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& public
 
+class procedure TdcmGrup50xx.AddBook( const Book_:TdcmBookTag );
+var
+   I :Byte;
+begin
+     {
+       http://dicom.nema.org/medical/dicom/current/output/html/part05.html#sect_7.6
+       7.6 Repeating Groups
+     }
+     for I := 0 to $1E div 2 do Create( Book_, $5000 + 2 * I );
+end;
+
+//------------------------------------------------------------------------------
+
 constructor TdcmGrup50xx.Create( const Book_:TdcmBookTag; const Code_:THex4 );
 begin
-     inherited Create( Book_, Code_ );
+     inherited;
 
      // http://dicom.nema.org/medical/dicom/current/output/html/part06.html#chapter_6
      // 6 Registry of DICOM Data Elements
