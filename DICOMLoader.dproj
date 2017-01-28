@@ -401,8 +401,10 @@
         <DCCReference Include="_LIBRARY\LUXOPHIA\LUX.DICOM\Tags\LUX.DICOM.Tags.GFFFC.pas"/>
         <DCCReference Include="_LIBRARY\LUXOPHIA\LUX.DICOM\Tags\LUX.DICOM.Tags.GFFFE.pas"/>
         <DCCReference Include="_LIBRARY\LUXOPHIA\LUX.DICOM\LUX.DICOM.Ports.pas"/>
-        <DCCReference Include="_LIBRARY\LUXOPHIA\LUX.DICOM\LUX.DICOM.Ports.Text.pas"/>
-        <DCCReference Include="_LIBRARY\LUXOPHIA\LUX.DICOM\LUX.DICOM.Ports.Imag.pas"/>
+        <DCCReference Include="_LIBRARY\LUXOPHIA\LUX.DICOM\Ports\LUX.DICOM.Ports.Arra.pas"/>
+        <DCCReference Include="_LIBRARY\LUXOPHIA\LUX.DICOM\Ports\LUX.DICOM.Ports.Reco.pas"/>
+        <DCCReference Include="_LIBRARY\LUXOPHIA\LUX.DICOM\Ports\LUX.DICOM.Ports.Text.pas"/>
+        <DCCReference Include="_LIBRARY\LUXOPHIA\LUX.DICOM\Ports\LUX.DICOM.Ports.Imag.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>
