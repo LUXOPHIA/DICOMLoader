@@ -16,6 +16,7 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
      private
      protected
      public
+       class procedure AddBook( const Book_:TdcmBookTag );
        constructor Create( const Book_:TdcmBookTag; const Code_:THex4 );
      end;
 
@@ -39,9 +40,16 @@ implementation //###############################################################
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& public
 
+class procedure TdcmGrup300C.AddBook( const Book_:TdcmBookTag );
+begin
+     Create( Book_, $300C );
+end;
+
+//------------------------------------------------------------------------------
+
 constructor TdcmGrup300C.Create( const Book_:TdcmBookTag; const Code_:THex4 );
 begin
-     inherited Create( Book_, Code_ );
+     inherited;
 
      // http://dicom.nema.org/medical/dicom/current/output/html/part06.html#chapter_6
      // 6 Registry of DICOM Data Elements

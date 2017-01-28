@@ -16,6 +16,7 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
      private
      protected
      public
+       class procedure AddBook( const Book_:TdcmBookTag );
        constructor Create( const Book_:TdcmBookTag; const Code_:THex4 );
      end;
 
@@ -39,9 +40,16 @@ implementation //###############################################################
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& public
 
+class procedure TdcmGrup0000.AddBook( const Book_:TdcmBookTag );
+begin
+     Create( Book_, $0000 );
+end;
+
+//------------------------------------------------------------------------------
+
 constructor TdcmGrup0000.Create( const Book_:TdcmBookTag; const Code_:THex4 );
 begin
-     inherited Create( Book_, Code_ );
+     inherited;
 
      // http://dicom.nema.org/medical/dicom/current/output/html/part07.html#sect_E.1
      Add( $0000, 'CommandGroupLength', [TKindVR.vrUL], 'Command Group Length' );

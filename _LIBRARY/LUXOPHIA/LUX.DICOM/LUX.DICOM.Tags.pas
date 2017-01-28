@@ -175,7 +175,6 @@ uses LUX.DICOM.Tags.G0000,
      LUX.DICOM.Tags.G5600,
      LUX.DICOM.Tags.G60xx,
      LUX.DICOM.Tags.G7Fxx,
-     LUX.DICOM.Tags.G7FE0,
      LUX.DICOM.Tags.GFFFA,
      LUX.DICOM.Tags.GFFFC,
      LUX.DICOM.Tags.GFFFE;
@@ -276,7 +275,7 @@ begin
      _Book := Book_;
      _Code := Code_;
 
-     _Book.Add( Code_, Self );
+     _Book.Add( _Code, Self );
 end;
 
 destructor TdcmGrup.Destroy;
@@ -305,83 +304,77 @@ constructor TdcmBookTag.Create;
 begin
      inherited Create( [ doOwnsValues ] );
 
-     TdcmGrup0000.Create( Self, $0000 );
-     TdcmGrup0002.Create( Self, $0002 );
-     TdcmGrup0004.Create( Self, $0004 );
-     TdcmGrup0008.Create( Self, $0008 );
-     TdcmGrup0010.Create( Self, $0010 );
-     TdcmGrup0012.Create( Self, $0012 );
-     TdcmGrup0014.Create( Self, $0014 );
-     TdcmGrup0018.Create( Self, $0018 );
-     TdcmGrup0020.Create( Self, $0020 );
-     TdcmGrup0022.Create( Self, $0022 );
-     TdcmGrup0024.Create( Self, $0024 );
-     TdcmGrup0028.Create( Self, $0028 );
-     TdcmGrup0032.Create( Self, $0032 );
-     TdcmGrup0038.Create( Self, $0038 );
-     TdcmGrup003A.Create( Self, $003A );
-     TdcmGrup0040.Create( Self, $0040 );
-     TdcmGrup0042.Create( Self, $0042 );
-     TdcmGrup0044.Create( Self, $0044 );
-     TdcmGrup0046.Create( Self, $0046 );
-     TdcmGrup0048.Create( Self, $0048 );
-     TdcmGrup0050.Create( Self, $0050 );
-     TdcmGrup0052.Create( Self, $0052 );
-     TdcmGrup0054.Create( Self, $0054 );
-     TdcmGrup0060.Create( Self, $0060 );
-     TdcmGrup0062.Create( Self, $0062 );
-     TdcmGrup0064.Create( Self, $0064 );
-     TdcmGrup0066.Create( Self, $0066 );
-     TdcmGrup0068.Create( Self, $0068 );
-     TdcmGrup0070.Create( Self, $0070 );
-     TdcmGrup0072.Create( Self, $0072 );
-     TdcmGrup0074.Create( Self, $0074 );
-     TdcmGrup0076.Create( Self, $0076 );
-     TdcmGrup0078.Create( Self, $0078 );
-     TdcmGrup0080.Create( Self, $0080 );
-     TdcmGrup0082.Create( Self, $0082 );
-     TdcmGrup0088.Create( Self, $0088 );
-     TdcmGrup0100.Create( Self, $0100 );
-     TdcmGrup0400.Create( Self, $0400 );
-     TdcmGrup1000.Create( Self, $1000 );
-     TdcmGrup1010.Create( Self, $1010 );
-     TdcmGrup2000.Create( Self, $2000 );
-     TdcmGrup2010.Create( Self, $2010 );
-     TdcmGrup2020.Create( Self, $2020 );
-     TdcmGrup2030.Create( Self, $2030 );
-     TdcmGrup2040.Create( Self, $2040 );
-     TdcmGrup2050.Create( Self, $2050 );
-     TdcmGrup2100.Create( Self, $2100 );
-     TdcmGrup2110.Create( Self, $2110 );
-     TdcmGrup2120.Create( Self, $2120 );
-     TdcmGrup2130.Create( Self, $2130 );
-     TdcmGrup2200.Create( Self, $2200 );
-     TdcmGrup3002.Create( Self, $3002 );
-     TdcmGrup3004.Create( Self, $3004 );
-     TdcmGrup3006.Create( Self, $3006 );
-     TdcmGrup3008.Create( Self, $3008 );
-     TdcmGrup300A.Create( Self, $300A );
-     TdcmGrup300C.Create( Self, $300C );
-     TdcmGrup300E.Create( Self, $300E );
-     TdcmGrup4000.Create( Self, $4000 );
-     TdcmGrup4008.Create( Self, $4008 );
-     TdcmGrup4010.Create( Self, $4010 );
-     TdcmGrup4FFE.Create( Self, $4FFE );
-
-     TdcmGrup50xx.Create( Self, $5000 );
-
-     TdcmGrup5200.Create( Self, $5200 );
-     TdcmGrup5400.Create( Self, $5400 );
-     TdcmGrup5600.Create( Self, $5600 );
-
-     TdcmGrup60xx.Create( Self, $6000 );
-
-     TdcmGrup7Fxx.Create( Self, $7F00 );
-
-     TdcmGrup7FE0.Create( Self, $7FE0 );
-     TdcmGrupFFFA.Create( Self, $FFFA );
-     TdcmGrupFFFC.Create( Self, $FFFC );
-     TdcmGrupFFFE.Create( Self, $FFFE );
+     TdcmGrup0000.AddBook( Self );
+     TdcmGrup0002.AddBook( Self );
+     TdcmGrup0004.AddBook( Self );
+     TdcmGrup0008.AddBook( Self );
+     TdcmGrup0010.AddBook( Self );
+     TdcmGrup0012.AddBook( Self );
+     TdcmGrup0014.AddBook( Self );
+     TdcmGrup0018.AddBook( Self );
+     TdcmGrup0020.AddBook( Self );
+     TdcmGrup0022.AddBook( Self );
+     TdcmGrup0024.AddBook( Self );
+     TdcmGrup0028.AddBook( Self );
+     TdcmGrup0032.AddBook( Self );
+     TdcmGrup0038.AddBook( Self );
+     TdcmGrup003A.AddBook( Self );
+     TdcmGrup0040.AddBook( Self );
+     TdcmGrup0042.AddBook( Self );
+     TdcmGrup0044.AddBook( Self );
+     TdcmGrup0046.AddBook( Self );
+     TdcmGrup0048.AddBook( Self );
+     TdcmGrup0050.AddBook( Self );
+     TdcmGrup0052.AddBook( Self );
+     TdcmGrup0054.AddBook( Self );
+     TdcmGrup0060.AddBook( Self );
+     TdcmGrup0062.AddBook( Self );
+     TdcmGrup0064.AddBook( Self );
+     TdcmGrup0066.AddBook( Self );
+     TdcmGrup0068.AddBook( Self );
+     TdcmGrup0070.AddBook( Self );
+     TdcmGrup0072.AddBook( Self );
+     TdcmGrup0074.AddBook( Self );
+     TdcmGrup0076.AddBook( Self );
+     TdcmGrup0078.AddBook( Self );
+     TdcmGrup0080.AddBook( Self );
+     TdcmGrup0082.AddBook( Self );
+     TdcmGrup0088.AddBook( Self );
+     TdcmGrup0100.AddBook( Self );
+     TdcmGrup0400.AddBook( Self );
+     TdcmGrup1000.AddBook( Self );
+     TdcmGrup1010.AddBook( Self );
+     TdcmGrup2000.AddBook( Self );
+     TdcmGrup2010.AddBook( Self );
+     TdcmGrup2020.AddBook( Self );
+     TdcmGrup2030.AddBook( Self );
+     TdcmGrup2040.AddBook( Self );
+     TdcmGrup2050.AddBook( Self );
+     TdcmGrup2100.AddBook( Self );
+     TdcmGrup2110.AddBook( Self );
+     TdcmGrup2120.AddBook( Self );
+     TdcmGrup2130.AddBook( Self );
+     TdcmGrup2200.AddBook( Self );
+     TdcmGrup3002.AddBook( Self );
+     TdcmGrup3004.AddBook( Self );
+     TdcmGrup3006.AddBook( Self );
+     TdcmGrup3008.AddBook( Self );
+     TdcmGrup300A.AddBook( Self );
+     TdcmGrup300C.AddBook( Self );
+     TdcmGrup300E.AddBook( Self );
+     TdcmGrup4000.AddBook( Self );
+     TdcmGrup4008.AddBook( Self );
+     TdcmGrup4010.AddBook( Self );
+     TdcmGrup4FFE.AddBook( Self );
+     TdcmGrup50xx.AddBook( Self );
+     TdcmGrup5200.AddBook( Self );
+     TdcmGrup5400.AddBook( Self );
+     TdcmGrup5600.AddBook( Self );
+     TdcmGrup60xx.AddBook( Self );
+     TdcmGrup7Fxx.AddBook( Self );
+     TdcmGrupFFFA.AddBook( Self );
+     TdcmGrupFFFC.AddBook( Self );
+     TdcmGrupFFFE.AddBook( Self );
 end;
 
 destructor TdcmBookTag.Destroy;
