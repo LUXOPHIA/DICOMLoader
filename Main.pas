@@ -7,7 +7,7 @@ uses
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs,
   System.Rtti,
   FMX.Grid.Style, FMX.Grid, FMX.Controls.Presentation, FMX.ScrollBox,
-  LUX.DICOM, LUX.DICOM.Tags, LUX.DICOM.VRs;
+  LUX.DICOM, LUX.DICOM.VRs, LUX.DICOM.Tags;
 
 type
   TForm1 = class(TForm)
