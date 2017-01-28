@@ -61,15 +61,10 @@ begin
                begin
                     Cells[ 1, I ] := Tag.Grup.ToString;
                     Cells[ 2, I ] := Tag.Elem.ToString;
-
                     Cells[ 3, I ] := OriVR.ToString;
                     Cells[ 4, I ] := ExpVR.ToString;
-
                     Cells[ 5, I ] := Size.ToString;
-
-                    if Assigned( Port ) then Cells[ 6, I ] := Port.Text
-                                        else Cells[ 6, I ] := '?';
-
+                    Cells[ 6, I ] := Port.Text;
                     Cells[ 7, I ] := Desc;
                end;
           end;
