@@ -2,7 +2,7 @@
 
 interface //#################################################################### ■
 
-uses System.Classes, System.SysUtils, System.Generics.Collections,
+uses System.SysUtils, System.Classes, System.Generics.Collections,
      LUX, LUX.DICOM.VRs, LUX.DICOM.Tags;
 
 type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【型】
@@ -131,8 +131,8 @@ implementation //###############################################################
 uses LUX.DICOM.Ports,
      LUX.DICOM.Ports.Reco,
      LUX.DICOM.Ports.Text,
-     LUX.DICOM.Ports.Arra,
-     LUX.DICOM.Ports.Imag;
+     LUX.DICOM.Ports.D1,
+     LUX.DICOM.Ports.D2.Imag;
 
 //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【レコード】
 
