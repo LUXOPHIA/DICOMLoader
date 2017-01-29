@@ -2,14 +2,14 @@
 
 interface //#################################################################### ■
 
-uses System.Classes, System.SysUtils, System.Generics.Collections, System.Math, System.RegularExpressions,
-     LUX, LUX.DICOM.Tags, LUX.DICOM.VRs, System.AnsiStrings;
+uses System.Classes, System.SysUtils, System.Generics.Collections,
+     LUX, LUX.DICOM.VRs, LUX.DICOM.Tags;
 
 type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【型】
 
-     TdcmPort = class;
-     TdcmData = class;
-     TdcmFile = class;
+     TdcmPort<_TYPE_> = class;
+     TdcmData         = class;
+     TdcmFile         = class;
 
      //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【レコード】
 
@@ -22,79 +22,44 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
        Pref :array [ 0..  4-1 ] of AnsiChar;
      end;
 
-     //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TdcmDate
-
-     TdcmDate = record
-     private
-     public
-       Y :Word;
-       M :Byte;
-       D :Byte;
-       /////
-       constructor Create( const Y_:Word; const M_,D_:Byte ); overload;
-       constructor Create( const Text_:String ); overload;
-       ///// メソッド
-       function ToString :String;
-     end;
-
-     //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TdcmTime
-
-     TdcmTime = record
-     private
-     public
-       H :Byte;
-       M :Byte;
-       S :Double;
-       /////
-       constructor Create( const H_,M_:Byte; const S_:Double ); overload;
-       constructor Create( const Text_:String ); overload;
-       ///// メソッド
-       function ToString :String;
-     end;
-
-     //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TdcmZone
-
-     TdcmZone = record
-     private
-     public
-       Sign :TValueSign;
-       Time :TdcmTime;
-       /////
-       constructor Create( const Sign_:TValueSign; const TimeH_,TimeM_:Byte ); overload;
-       constructor Create( const Text_:String ); overload;
-       ///// メソッド
-       function ToString :String;
-     end;
-
-     //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TdcmDateTime
-
-     TdcmDateTime = record
-     private
-     public
-       Date :TdcmDate;
-       Time :TdcmTime;
-       Zone :TdcmZone;
-       /////
-       constructor Create( const Text_:String );
-       ///// メソッド
-       function ToString :String;
-     end;
-
      //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【クラス】
 
-     //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TdcmPort
+     //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TdcmPort<_TYPE_>
 
-     TdcmPort = class
+     IdcmPort = interface
+       ['{54B1ECA5-221A-4F1D-821A-C551B2D93C90}']
+       ///// アクセス
+       function GetData :TdcmData;
+       procedure SetData( const Data_:TdcmData );
+       function GetText :String;
+       procedure SetText( const Text_:String );
+       ///// プロパティ
+       property Data :TdcmData read GetData write SetData;
+       property Text :String   read GetText write SetText;
+     end;
+
+     //-------------------------------------------------------------------------
+
+     TdcmPort<_TYPE_> = class( TInterfacedObject, IdcmPort )
      private
      protected
        _Data :TdcmData;
        ///// アクセス
+       function GetValue :_TYPE_; virtual;
+       procedure SetValue( const Value_:_TYPE_ ); virtual;
+       { IdcmPort }
+       function GetData :TdcmData;
+       procedure SetData( const Data_:TdcmData );
        function GetText :String; virtual; abstract;
-       procedure SetText( Text_:String ); virtual; abstract;
+       procedure SetText( const Text_:String ); virtual; abstract;
      public
-       constructor Create( const Data_:TdcmData );
+       constructor Create;
+       destructor Destroy; override;
        ///// プロパティ
-       property Text :String read GetText write SetText;
+       property Value :_TYPE_   read GetValue write SetValue;
+       { IdcmPort }
+       property Data  :TdcmData read GetData  write SetData ;
+       property Text  :String   read GetText  write SetText ;
      end;
 
      //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TdcmData
@@ -106,7 +71,7 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
        _Tag   :TdcmTag;
        _ExpVR :TKindVR;
        _Data  :TBytes;
-       _Port  :TdcmPort;
+       _Port  :IdcmPort;
        ///// アクセス
        function GetIsStd :Boolean;
        function GetElem :TdcmElem;
@@ -114,9 +79,12 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
        function GetRecVR :TKindVR;
        function GetSize :Cardinal;
        procedure SetSize( const Size_:Cardinal );
+       function GetPort :IdcmPort;
+       procedure SetPort( const Port_:IdcmPort );
        function GetDesc :String;
        ///// メソッド
        procedure MakePort;
+       procedure MakePortImag;
      public
        constructor Create( const File_:TdcmFile );
        destructor Destroy; override;
@@ -129,7 +97,7 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
        property RecVR :TKindVR  read GetRecVR              ;
        property Size  :Cardinal read GetSize  write SetSize;
        property Data  :TBytes   read   _Data               ;
-       property Port  :TdcmPort read   _Port               ;
+       property Port  :IdcmPort read GetPort  write SetPort;
        property Desc  :String   read GetDesc               ;
        ///// メソッド
        procedure ReadStream( const F_:TFileStream );
@@ -142,8 +110,6 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
      protected
        ///// アクセス
        function GetData( const Grup_,Elem_:THex4 ) :TdcmData;
-       ///// メソッド
-       procedure MakePorts;
      public
        constructor Create;
        destructor Destroy; override;
@@ -162,7 +128,11 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 
 implementation //############################################################### ■
 
-uses LUX.DICOM.Ports;
+uses LUX.DICOM.Ports,
+     LUX.DICOM.Ports.Reco,
+     LUX.DICOM.Ports.Text,
+     LUX.DICOM.Ports.Arra,
+     LUX.DICOM.Ports.Imag;
 
 //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【レコード】
 
@@ -172,162 +142,51 @@ uses LUX.DICOM.Ports;
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& public
 
-//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TdcmDate
-
-//&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& private
-
-//&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& public
-
-constructor TdcmDate.Create( const Y_:Word; const M_,D_:Byte );
-begin
-     Y := Y_;
-     M := M_;
-     D := D_;
-end;
-
-constructor TdcmDate.Create( const Text_:String );
-begin
-     with TRegEx.Match( Text_, '(\d{4})(\d{2})?(\d{2})?' ) do
-     begin
-          with Groups do
-          begin
-               if Count > 1 then Y := Item[1].Value.ToInteger else Y := 0;
-               if Count > 2 then M := Item[2].Value.ToInteger else M := 0;
-               if Count > 3 then D := Item[3].Value.ToInteger else D := 0;
-          end;
-     end;
-end;
-
-/////////////////////////////////////////////////////////////////////// メソッド
-
-function TdcmDate.ToString :String;
-begin
-     Result := Format( '%.4d%.2d%.2d', [ Y, M, D ] );
-end;
-
-//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TdcmTime
-
-//&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& private
-
-//&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& public
-
-constructor TdcmTime.Create( const H_,M_:Byte; const S_:Double );
-begin
-     H := H_;
-     M := M_;
-     S := S_;
-end;
-
-constructor TdcmTime.Create( const Text_:String );
-begin
-     with TRegEx.Match( Text_, '(\d{2})(\d{2})?(\d{2}(?:\.\d{1,6})?)?' ) do
-     begin
-          with Groups do
-          begin
-               if Count > 1 then H := Item[1].Value.ToInteger else H := 0;
-               if Count > 2 then M := Item[2].Value.ToInteger else M := 0;
-               if Count > 3 then S := Item[3].Value.ToDouble  else S := 0;
-          end;
-     end;
-end;
-
-/////////////////////////////////////////////////////////////////////// メソッド
-
-function TdcmTime.ToString :String;
-begin
-     Result := Format( '%.2d%.2d%.2d', [ H, M, Trunc( S ) ] ) + Frac( S ).ToString.Substring( 1 );
-end;
-
-//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TdcmZone
-
-//&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& private
-
-//&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& public
-
-constructor TdcmZone.Create( const Sign_:TValueSign; const TimeH_,TimeM_:Byte );
-begin
-     Sign := Sign_;
-     Time := TdcmTime.Create( TimeH_, TimeM_, 0 );
-end;
-
-constructor TdcmZone.Create( const Text_:String );
-begin
-     with TRegEx.Match( Text_, '([-+])((?:\d{2}){2})' ) do
-     begin
-          if Success then
-          begin
-               Sign := ( Groups[1].Value + '1' ).ToInteger;
-               Time := TdcmTime.Create( Groups[2].Value );
-          end
-          else Self := TdcmZone.Create( 0, 0, 0 );
-     end;
-end;
-
-/////////////////////////////////////////////////////////////////////// メソッド
-
-function TdcmZone.ToString :String;
-begin
-     if Sign = 0 then Result := ''
-     else
-     begin
-          if Sign = -1 then Result := '-'
-                       else Result := '+';
-
-          Result := Result + Format( '%.2d%.2d', [ Time.H, Time.M ] );
-     end;
-end;
-
-//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TdcmDateTime
-
-//&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& private
-
-//&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& public
-
-constructor TdcmDateTime.Create( const Text_:String );
-begin
-     with TRegEx.Match( Text_, '(\d{4}(?:\d{2}){0,2})((?:\d{2}){1,2}(?:\d{2}\.\d{1,6})?)?' ) do
-     begin
-          with Groups do
-          begin
-               if Count > 1 then Date := TdcmDate.Create( Item[1].Value )
-                            else Date := TdcmDate.Create( 0, 0, 0 );
-
-               if Count > 2 then Time := TdcmTime.Create( Item[2].Value )
-                            else Time := TdcmTime.Create( 0, 0, 0 );
-          end;
-     end;
-
-     //////////
-
-     with TRegEx.Match( Text_, '[-+](?:\d{2}){2}' ) do
-     begin
-          if Success then Zone := TdcmZone.Create( Value )
-                     else Zone := TdcmZone.Create( 0, 0, 0 );
-     end;
-end;
-
-/////////////////////////////////////////////////////////////////////// メソッド
-
-function TdcmDateTime.ToString :String;
-begin
-     Result := Date.ToString + Time.ToString + Zone.ToString;
-end;
-
 //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【クラス】
 
-//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TdcmPort
+//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TdcmPort<_TYPE_>
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& private
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& protected
 
+/////////////////////////////////////////////////////////////////////// アクセス
+
+function TdcmPort<_TYPE_>.GetValue :_TYPE_;
+begin
+     Move( _Data.Data[0], Result, SizeOf( _TYPE_ ) );
+end;
+
+procedure TdcmPort<_TYPE_>.SetValue( const Value_:_TYPE_ );
+begin
+     Move( Value_, _Data.Data[0], SizeOf( _TYPE_ ) );
+end;
+
+//------------------------------------------------------------------------------
+
+function TdcmPort<_TYPE_>.GetData :TdcmData;
+begin
+     Result := _Data;
+end;
+
+procedure TdcmPort<_TYPE_>.SetData( const Data_:TdcmData );
+begin
+     _Data := Data_;
+end;
+
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& public
 
-constructor TdcmPort.Create( const Data_:TdcmData );
+constructor TdcmPort<_TYPE_>.Create;
 begin
-     inherited Create;
+     inherited;
 
-     _Data := Data_;
+     _Data := nil;
+end;
+
+destructor TdcmPort<_TYPE_>.Destroy;
+begin
+
+     inherited;
 end;
 
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TdcmData
@@ -367,8 +226,31 @@ begin
 end;
 
 procedure TdcmData.SetSize( const Size_:Cardinal );
+var
+   N :Integer;
 begin
-     SetLength( _Data, Size_ );
+     if Size_ mod 2 = 0 then N := Size_
+                        else N := Size_ + 1;  //バイト数は常に偶数
+
+     SetLength( _Data, N );
+end;
+
+function TdcmData.GetPort :IdcmPort;
+begin
+     if not Assigned( _Port ) then
+     begin
+          if _Tag = TdcmTag.Create( $7FE0, $0010 ) then MakePortImag
+                                                   else MakePort;
+     end;
+
+     Result := _Port;
+end;
+
+procedure TdcmData.SetPort( const Port_:IdcmPort );
+begin
+     _Port := Port_;
+
+     if Assigned( _Port ) then _Port.Data := Self;
 end;
 
 function TdcmData.GetDesc :String;
@@ -382,37 +264,80 @@ end;
 procedure TdcmData.MakePort;
 begin
      case RecVR of
-         vrAE: _Port := TdcmPortAE.Create( Self );  //Application Entity
-         vrAS: _Port := TdcmPortAS.Create( Self );  //Age String
-         vrAT:                                   ;  //Attribute Tag
-         vrCS: _Port := TdcmPortCS.Create( Self );  //Code String
-         vrDA: _Port := TdcmPortDA.Create( Self );  //Date
-         vrDS: _Port := TdcmPortDS.Create( Self );  //Decimal String
-         vrDT: _Port := TdcmPortDT.Create( Self );  //Date Time
-         vrFL:                                   ;  //Floating Point Single
-         vrFD:                                   ;  //Floating Point Double
-         vrIS: _Port := TdcmPortIS.Create( Self );  //Integer String
-         vrLO: _Port := TdcmPortLO.Create( Self );  //Long String
-         vrLT: _Port := TdcmPortLT.Create( Self );  //Long Text
-         vrOB:                                   ;  //Other Byte
-         vrOD:                                   ;  //Other Double
-         vrOF:                                   ;  //Other Float
-         vrOL:                                   ;  //Other Long
-         vrOW:                                   ;  //Other Word
-         vrPN: _Port := TdcmPortPN.Create( Self );  //Person Name
-         vrSH: _Port := TdcmPortSH.Create( Self );  //Short String
-         vrSL:                                   ;  //Signed Long
-         vrSQ:                                   ;  //Sequence of Items
-         vrSS:                                   ;  //Signed Short
-         vrST: _Port := TdcmPortST.Create( Self );  //Short Text
-         vrTM: _Port := TdcmPortTM.Create( Self );  //Time
-         vrUC: _Port := TdcmPortUC.Create( Self );  //Unlimited Characters
-         vrUI: _Port := TdcmPortUI.Create( Self );  //Unique Identifier (UID)
-         vrUL:                                   ;  //Unsigned Long
-         vrUN:                                   ;  //Unknown
-         vrUR: _Port := TdcmPortUR.Create( Self );  //Universal Resource Identifier or Universal Resource Locator (URI/URL)
-         vrUS:                                   ;  //Unsigned Short
-         vrUT: _Port := TdcmPortUT.Create( Self );  //Unlimited Text
+         vrAE: Port := TdcmPortAE.Create;  //Application Entity
+         vrAS: Port := TdcmPortAS.Create;  //Age String
+         vrAT: Port := TdcmPortAT.Create;  //Attribute Tag
+         vrCS: Port := TdcmPortCS.Create;  //Code String
+         vrDA: Port := TdcmPortDA.Create;  //Date
+         vrDS: Port := TdcmPortDS.Create;  //Decimal String
+         vrDT: Port := TdcmPortDT.Create;  //Date Time
+         vrFL: Port := TdcmPortFL.Create;  //Floating Point Single
+         vrFD: Port := TdcmPortFD.Create;  //Floating Point Double
+         vrIS: Port := TdcmPortIS.Create;  //Integer String
+         vrLO: Port := TdcmPortLO.Create;  //Long String
+         vrLT: Port := TdcmPortLT.Create;  //Long Text
+         vrOB: Port := TdcmPortOB.Create;  //Other Byte
+         vrOD: Port := TdcmPortOD.Create;  //Other Double
+         vrOF: Port := TdcmPortOF.Create;  //Other Float
+         vrOL: Port := TdcmPortOL.Create;  //Other Long
+         vrOW: Port := TdcmPortOW.Create;  //Other Word
+         vrPN: Port := TdcmPortPN.Create;  //Person Name
+         vrSH: Port := TdcmPortSH.Create;  //Short String
+         vrSL: Port := TdcmPortSL.Create;  //Signed Long
+         vrSQ: Port := TdcmPortSQ.Create;  //Sequence of Items
+         vrSS: Port := TdcmPortSS.Create;  //Signed Short
+         vrST: Port := TdcmPortST.Create;  //Short Text
+         vrTM: Port := TdcmPortTM.Create;  //Time
+         vrUC: Port := TdcmPortUC.Create;  //Unlimited Characters
+         vrUI: Port := TdcmPortUI.Create;  //Unique Identifier (UID)
+         vrUL: Port := TdcmPortUL.Create;  //Unsigned Long
+         vrUN: Port := TdcmPortUN.Create;  //Unknown
+         vrUR: Port := TdcmPortUR.Create;  //Universal Resource Identifier or Universal Resource Locator (URI/URL)
+         vrUS: Port := TdcmPortUS.Create;  //Unsigned Short
+         vrUT: Port := TdcmPortUT.Create;  //Unlimited Text
+         else  Port := TdcmPortUN.Create;
+     end;
+end;
+
+procedure TdcmData.MakePortImag;
+var
+   PI :String;
+   SX, SY, BA, BS, HB, PR :Word;
+begin
+     with _File do
+     begin
+          Assert( Assigned( Data[$0028,$0004] ), 'PhotometricInterpretation is not found!' );
+          Assert( Assigned( Data[$0028,$0010] ), 'Row is not found!' );
+          Assert( Assigned( Data[$0028,$0011] ), 'Columns is not found!' );
+          Assert( Assigned( Data[$0028,$0100] ), 'BitsAllocated is not found!' );
+          Assert( Assigned( Data[$0028,$0101] ), 'BitsStored is not found!' );
+          Assert( Assigned( Data[$0028,$0102] ), 'HighBit is not found!' );
+          Assert( Assigned( Data[$0028,$0103] ), 'PixelRepresentation is not found!' );
+
+          PI := TdcmPortCS( Data[$0028,$0004].Port ).Value;  //Photometric Interpretation
+          SY := TdcmPortUS( Data[$0028,$0010].Port ).Value;  //Row
+          SX := TdcmPortUS( Data[$0028,$0011].Port ).Value;  //Columns
+          BA := TdcmPortUS( Data[$0028,$0100].Port ).Value;  //Bits Allocated
+          BS := TdcmPortUS( Data[$0028,$0101].Port ).Value;  //Bits Stored
+          HB := TdcmPortUS( Data[$0028,$0102].Port ).Value;  //High Bit
+          PR := TdcmPortUS( Data[$0028,$0103].Port ).Value;  //Pixel Representation
+     end;
+
+     case BA of
+      08: if PR = 0 then Port := TdcmPortImagU08.Create
+                    else Port := TdcmPortImagS08.Create;
+      16: if PR = 0 then Port := TdcmPortImagU16.Create
+                    else Port := TdcmPortImagS16.Create;
+     else Assert( False, 'The number of bits is not supported!' );
+     end;
+
+     with Port as IdcmPortImag do
+     begin
+          KindP  := TKindPixel.Create( PI );
+          BitsN  := BS;
+          BitsI  := HB;
+          CountX := SX;
+          CountY := SY;
      end;
 end;
 
@@ -422,12 +347,15 @@ constructor TdcmData.Create( const File_:TdcmFile );
 begin
      inherited Create;
 
-     _File := File_;
+     _File  := File_;
+     _Tag   := TdcmTag.Create( $0000, $0000 );
+     _ExpVR := TKindVR.vr00;
+     _Data  := [];
+     _Port  := nil;
 end;
 
 destructor TdcmData.Destroy;
 begin
-     if Assigned( _Port ) then _Port.Free;
 
      inherited;
 end;
@@ -508,8 +436,6 @@ begin
      Size := N;
 
      F_.ReadBuffer( _Data, N );
-
-     MakePort;
 end;
 
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TdcmFile
@@ -523,13 +449,6 @@ end;
 function TdcmFile.GetData( const Grup_,Elem_:THex4 ) :TdcmData;
 begin
      Result := Items[ TdcmTag.Create( Grup_, Elem_ ) ];
-end;
-
-/////////////////////////////////////////////////////////////////////// メソッド
-
-procedure TdcmFile.MakePorts;
-begin
-
 end;
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& public
@@ -572,8 +491,6 @@ begin
      end;
 
      F.Free;
-
-     MakePorts;
 end;
 
 function TdcmFile.TagsToArray :TArray<TdcmTag>;
