@@ -1,8 +1,8 @@
-﻿unit LUX.DICOM.Ports.Imag;
+﻿unit LUX.DICOM.Ports.D2.Imag;
 
 interface //#################################################################### ■
 
-uses LUX.DICOM.Ports;
+uses LUX.DICOM.Ports, LUX.DICOM.Ports.D2;
 
 type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【型】
 
