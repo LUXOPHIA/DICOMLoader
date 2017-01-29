@@ -7,7 +7,7 @@ uses
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs,
   System.Rtti,
   FMX.Grid.Style, FMX.Grid, FMX.Controls.Presentation, FMX.ScrollBox,
-  LUX.DICOM, LUX.DICOM.VRs, LUX.DICOM.Tags;
+  LUX.DICOM;
 
 type
   TForm1 = class(TForm)
@@ -39,6 +39,8 @@ var
 implementation //############################################################### ■
 
 {$R *.fmx}
+
+uses LUX.DICOM.VRs, LUX.DICOM.Tags;
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& private
 
