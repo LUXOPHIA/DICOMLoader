@@ -40,7 +40,13 @@ implementation //###############################################################
 
 {$R *.fmx}
 
-uses LUX.DICOM.VRs, LUX.DICOM.Tags;
+uses LUX.DICOM.VRs,
+     LUX.DICOM.Tags,
+     LUX.DICOM.Ports,
+     LUX.DICOM.Ports.Reco,
+     LUX.DICOM.Ports.Text,
+     LUX.DICOM.Ports.Arra,
+     LUX.DICOM.Ports.Imag;
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& private
 
