@@ -2,7 +2,7 @@
 
 医用画像フォーマット「[DICOM](https://www.wikiwand.com/ja/DICOM)」を読み込む方法。4,200種類以上の公式タグに対応。
 
-![](https://media.githubusercontent.com/media/LUXOPHIA/DICOMLoader/master/--------/_SCREENSHOT/DICOMLoader.png)
+![](https://github.com/LUXOPHIA/DICOMLoader/raw/26ad3798ecb86b3f1d521745196c30619cbffd10/--------/_SCREENSHOT/DICOMLoader.png)
 
 各のエレメントのデータは、型のないバイト配列として```TdcmData```クラス内に保持されるが、さらにそこへ紐付けられた入出力管理クラス```TdcmPort```を介することで、VR の変数型に応じた入出力が可能（現状テキスト型データのみ対応）。
 
