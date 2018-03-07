@@ -9,6 +9,54 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 
      //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【レコード】
 
+     //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TByte4D
+
+     TByte4D = record
+     private
+       ///// アクセス
+       function GetV( const I_:Integer ) :Byte; inline;
+       procedure SetV( const I_:Integer; const V_:Byte ); inline;
+     public
+       constructor Create( const V_:Byte ); overload;
+       constructor Create( const X_,Y_,Z_,W_:Byte ); overload;
+       ///// プロパティ
+       property _s[ const I_:Integer ] :Byte read GetV write SetV; default;
+     case Byte of
+      0:( _ :array [ 1..4 ] of Byte; );
+      1:(  X :Byte;
+           Y :Byte;
+           Z :Byte;
+           W :Byte;                  );
+      2:( _1 :Byte;
+          _2 :Byte;
+          _3 :Byte;
+          _4 :Byte;                  );
+     end;
+
+     //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TInteger4D
+
+     TInteger4D = record
+     private
+       ///// アクセス
+       function GetV( const I_:Integer ) :Integer; inline;
+       procedure SetV( const I_:Integer; const V_:Integer ); inline;
+     public
+       constructor Create( const V_:Integer ); overload;
+       constructor Create( const X_,Y_,Z_,W_:Integer ); overload;
+       ///// プロパティ
+       property _s[ const I_:Integer ] :Integer read GetV write SetV; default;
+     case Byte of
+      0:( _ :array [ 1..4 ] of Integer; );
+      1:(  X :Integer;
+           Y :Integer;
+           Z :Integer;
+           W :Integer;                  );
+      2:( _1 :Integer;
+          _2 :Integer;
+          _3 :Integer;
+          _4 :Integer;                  );
+     end;
+
      //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TSingle4D
 
      TSingle4D = record
@@ -25,6 +73,7 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
      public
        constructor Create( const V_:Single ); overload;
        constructor Create( const X_,Y_,Z_,W_:Single ); overload;
+       constructor Create( const P_:TSingle3D; const W_:Single ); overload;
        ///// プロパティ
        property V[ const I_:Integer ] :Single    read GetV      write SetV     ; default;
        property Siz2                  :Single    read GetSiz2   write SetSiz2  ;
@@ -54,6 +103,7 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
        function VectorTo( const P_:TSingle4D ) :TSingle4D;
        function UnitorTo( const P_:TSingle4D ) :TSingle4D;
        function DistanTo( const P_:TSingle4D ) :Single;
+       function ToCart :TSingle3D;
        class function RandG :TSingle4D; static;
        class function RandBS1 :TSingle4D; static;
        class function RandBS2 :TSingle4D; static;
@@ -89,6 +139,7 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
      public
        constructor Create( const V_:Double ); overload;
        constructor Create( const X_,Y_,Z_,W_:Double ); overload;
+       constructor Create( const P_:TDouble3D; const W_:Double ); overload;
        ///// プロパティ
        property V[ const I_:Integer ] :Double    read GetV      write SetV     ; default;
        property Siz2                  :Double    read GetSiz2   write SetSiz2  ;
@@ -118,6 +169,7 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
        function VectorTo( const P_:TDouble4D ) :TDouble4D;
        function UnitorTo( const P_:TDouble4D ) :TDouble4D;
        function DistanTo( const P_:TDouble4D ) :Double;
+       function ToCart :TDouble3D;
        class function RandG :TDouble4D; static;
        class function RandBS1 :TDouble4D; static;
        class function RandBS2 :TDouble4D; static;
@@ -284,11 +336,82 @@ function Ave( const P1_,P2_,P3_,P4_:TDouble4D ) :TDouble4D; inline; overload;
 function Ave( const P1_,P2_,P3_,P4_:TdSingle4D ) :TdSingle4D; inline; overload;
 function Ave( const P1_,P2_,P3_,P4_:TdDouble4D ) :TdDouble4D; inline; overload;
 
+function PolySolveReal( const Ks_:TSingle4D; out Xs_:TSingle3D ) :Byte; overload;
+function PolySolveReal( const Ks_:TDouble4D; out Xs_:TDouble3D ) :Byte; overload;
+
 implementation //############################################################### ■
 
 uses System.SysUtils, System.Math;
 
 //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【レコード】
+
+//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TByte4D
+
+//&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& private
+
+/////////////////////////////////////////////////////////////////////// アクセス
+
+function TByte4D.GetV( const I_:Integer ) :Byte;
+begin
+     Result := _[ I_ ];
+end;
+
+procedure TByte4D.SetV( const I_:Integer; const V_:Byte );
+begin
+     _[ I_ ] := V_;
+end;
+
+//&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& public
+
+constructor TByte4D.Create( const V_:Byte );
+begin
+     X := V_;
+     Y := V_;
+     Z := V_;
+     W := V_;
+end;
+
+constructor TByte4D.Create( const X_,Y_,Z_,W_:Byte );
+begin
+     X := X_;
+     Y := Y_;
+     Z := Z_;
+     W := W_;
+end;
+
+//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TInteger4D
+
+//&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& private
+
+/////////////////////////////////////////////////////////////////////// アクセス
+
+function TInteger4D.GetV( const I_:Integer ) :Integer;
+begin
+     Result := _[ I_ ];
+end;
+
+procedure TInteger4D.SetV( const I_:Integer; const V_:Integer );
+begin
+     _[ I_ ] := V_;
+end;
+
+//&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& public
+
+constructor TInteger4D.Create( const V_:Integer );
+begin
+     X := V_;
+     Y := V_;
+     Z := V_;
+     W := V_;
+end;
+
+constructor TInteger4D.Create( const X_,Y_,Z_,W_:Integer );
+begin
+     X := X_;
+     Y := Y_;
+     Z := Z_;
+     W := W_;
+end;
 
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TSingle4D
 
@@ -354,6 +477,14 @@ begin
      Y := Y_;
      Z := Z_;
      W := W_;
+end;
+
+constructor TSingle4D.Create( const P_:TSingle3D; const W_:Single );
+begin
+     X := P_.X ;
+     Y := P_.Y ;
+     Z := P_.Z ;
+     W :=    W_;
 end;
 
 ///////////////////////////////////////////////////////////////////////// 演算子
@@ -566,6 +697,15 @@ end;
 
 //------------------------------------------------------------------------------
 
+function TSingle4D.ToCart :TSingle3D;
+begin
+     Result.X := X / W;
+     Result.Y := Y / W;
+     Result.Z := Z / W;
+end;
+
+//------------------------------------------------------------------------------
+
 class function TSingle4D.RandG :TSingle4D;
 begin
      with Result do
@@ -676,6 +816,14 @@ begin
      Y := Y_;
      Z := Z_;
      W := W_;
+end;
+
+constructor TDouble4D.Create( const P_:TDouble3D; const W_:Double );
+begin
+     X := P_.X ;
+     Y := P_.Y ;
+     Z := P_.Z ;
+     W :=    W_;
 end;
 
 ///////////////////////////////////////////////////////////////////////// 演算子
@@ -884,6 +1032,15 @@ end;
 function TDouble4D.DistanTo( const P_:TDouble4D ) :Double;
 begin
      Result := VectorTo( P_ ).Size;
+end;
+
+//------------------------------------------------------------------------------
+
+function TDouble4D.ToCart :TDouble3D;
+begin
+     Result.X := X / W;
+     Result.Y := Y / W;
+     Result.Z := Z / W;
 end;
 
 //------------------------------------------------------------------------------
@@ -1554,6 +1711,152 @@ end;
 function Ave( const P1_,P2_,P3_,P4_:TdDouble4D ) :TdDouble4D;
 begin
      Result := ( P1_ + P2_ + P3_ + P4_ ) / 4;
+end;
+
+//------------------------------------------------------------------------------
+
+function PolySolveReal( const Ks_:TSingle4D; out Xs_:TSingle3D ) :Byte;
+var
+   Xs :TSingle2D;
+   A0, A1, A2, B2, P, Q, P3, Q2, D, D2, R, T, R3, T3, U, V, Y0, Y1, Y2 :Single;
+begin
+     if Ks_._4 = 0 then
+     begin
+          Result := PolySolveReal( TSingle3D( Ks_ ), Xs );
+
+          Xs_ := Xs;
+     end
+     else
+     begin
+          with Ks_ do
+          begin
+               A0 := _1 / _4;
+               A1 := _2 / _4;
+               A2 := _3 / _4;
+          end;
+
+          B2 := A2 / 3;
+
+          P := A1 - Pow2( A2 ) / 3;
+          Q := A0 + ( 2 * Pow2( B2 ) - A1 ) * B2;
+
+          P3 := P / 3;
+          Q2 := Q / 2;
+
+          D := Pow2( Q2 ) + Pow3( P3 );
+
+          case Sign( D ) of
+           -1: begin
+                    R := Roo2( Pow2( -Q2 ) - D );
+                    T := ArcTan2( Roo2( -D ), -Q2 );
+
+                    R3 := 2 * Roo3( R );
+                    T3 := T / 3;
+
+                    Y0 := R3 * Cos( T3 + P3i2 );
+                    Y1 := R3 * Cos( T3 - P3i2 );
+                    Y2 := R3 * Cos( T3        );
+
+                    Xs_[ 1 ] := Y0 - B2;
+                    Xs_[ 2 ] := Y1 - B2;
+                    Xs_[ 3 ] := Y2 - B2;
+
+                    Result := 3;
+               end;
+            0: begin
+                    Y0 := 2 * Roo3( -Q2 );
+
+                    Xs_[ 1 ] := Y0 - B2;
+
+                    Result := 1;
+               end;
+           +1: begin
+                    D2 := Roo2( D );
+
+                    U := Roo3( -Q2 + D2 );
+                    V := Roo3( -Q2 - D2 );
+
+                    Y0 := U + V;
+
+                    Xs_[ 1 ] := Y0 - B2;
+
+                    Result := 1;
+               end;
+          else Result := 0;
+          end;
+     end;
+end;
+
+function PolySolveReal( const Ks_:TDouble4D; out Xs_:TDouble3D ) :Byte;
+var
+   Xs :TDouble2D;
+   A0, A1, A2, B2, P, Q, P3, Q2, D, D2, R, T, R3, T3, U, V, Y0, Y1, Y2 :Double;
+begin
+     if Ks_._4 = 0 then
+     begin
+          Result := PolySolveReal( TDouble3D( Ks_ ), Xs );
+
+          Xs_ := Xs;
+     end
+     else
+     begin
+          with Ks_ do
+          begin
+               A0 := _1 / _4;
+               A1 := _2 / _4;
+               A2 := _3 / _4;
+          end;
+
+          B2 := A2 / 3;
+
+          P := A1 - Pow2( A2 ) / 3;
+          Q := A0 + ( 2 * Pow2( B2 ) - A1 ) * B2;
+
+          P3 := P / 3;
+          Q2 := Q / 2;
+
+          D := Pow2( Q2 ) + Pow3( P3 );
+
+          case Sign( D ) of
+           -1: begin
+                    R := Roo2( Pow2( -Q2 ) - D );
+                    T := ArcTan2( Roo2( -D ), -Q2 );
+
+                    R3 := 2 * Roo3( R );
+                    T3 := T / 3;
+
+                    Y0 := R3 * Cos( T3 + P3i2 );
+                    Y1 := R3 * Cos( T3 - P3i2 );
+                    Y2 := R3 * Cos( T3        );
+
+                    Xs_[ 1 ] := Y0 - B2;
+                    Xs_[ 2 ] := Y1 - B2;
+                    Xs_[ 3 ] := Y2 - B2;
+
+                    Result := 3;
+               end;
+            0: begin
+                    Y0 := 2 * Roo3( -Q2 );
+
+                    Xs_[ 1 ] := Y0 - B2;
+
+                    Result := 1;
+               end;
+           +1: begin
+                    D2 := Roo2( D );
+
+                    U := Roo3( -Q2 + D2 );
+                    V := Roo3( -Q2 - D2 );
+
+                    Y0 := U + V;
+
+                    Xs_[ 1 ] := Y0 - B2;
+
+                    Result := 1;
+               end;
+          else Result := 0;
+          end;
+     end;
 end;
 
 //############################################################################## □
