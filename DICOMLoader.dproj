@@ -105,20 +105,11 @@
             <Form>Form1</Form>
             <FormType>fmx</FormType>
         </DCCReference>
-        <DCCReference Include="_LIBRARY\LUXOPHIA\LUX\LUX.D4.pas"/>
-        <DCCReference Include="_LIBRARY\LUXOPHIA\LUX\LUX.D4.V4.pas"/>
-        <DCCReference Include="_LIBRARY\LUXOPHIA\LUX\LUX.M2.pas"/>
-        <DCCReference Include="_LIBRARY\LUXOPHIA\LUX\LUX.M3.pas"/>
-        <DCCReference Include="_LIBRARY\LUXOPHIA\LUX\LUX.M4.pas"/>
-        <DCCReference Include="_LIBRARY\LUXOPHIA\LUX\LUX.pas"/>
-        <DCCReference Include="_LIBRARY\LUXOPHIA\LUX\LUX.D1.pas"/>
-        <DCCReference Include="_LIBRARY\LUXOPHIA\LUX\LUX.D2.M4.pas"/>
-        <DCCReference Include="_LIBRARY\LUXOPHIA\LUX\LUX.D2.pas"/>
-        <DCCReference Include="_LIBRARY\LUXOPHIA\LUX\LUX.D2.V4.pas"/>
-        <DCCReference Include="_LIBRARY\LUXOPHIA\LUX\LUX.D3.M4.pas"/>
-        <DCCReference Include="_LIBRARY\LUXOPHIA\LUX\LUX.D3.pas"/>
-        <DCCReference Include="_LIBRARY\LUXOPHIA\LUX\LUX.D3.V4.pas"/>
-        <DCCReference Include="_LIBRARY\LUXOPHIA\LUX\LUX.D4.M4.pas"/>
+        <DCCReference Include="_LIBRARY\LUXOPHIA\LUX\--------\2022\LUX.D4.pas"/>
+        <DCCReference Include="_LIBRARY\LUXOPHIA\LUX\--------\2022\LUX.pas"/>
+        <DCCReference Include="_LIBRARY\LUXOPHIA\LUX\--------\2022\LUX.D1.pas"/>
+        <DCCReference Include="_LIBRARY\LUXOPHIA\LUX\--------\2022\LUX.D2.pas"/>
+        <DCCReference Include="_LIBRARY\LUXOPHIA\LUX\--------\2022\LUX.D3.pas"/>
         <DCCReference Include="_LIBRARY\LUXOPHIA\LUX.DICOM\LUX.DICOM.VRs.pas"/>
         <DCCReference Include="_LIBRARY\LUXOPHIA\LUX.DICOM\LUX.DICOM.pas"/>
         <DCCReference Include="_LIBRARY\LUXOPHIA\LUX.DICOM\LUX.DICOM.Tags.pas"/>
