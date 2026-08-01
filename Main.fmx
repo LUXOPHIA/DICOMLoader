@@ -2,8 +2,8 @@ object Form1: TForm1
   Left = 0
   Top = 0
   Caption = 'DICOMLoader'
-  ClientHeight = 614
-  ClientWidth = 948
+  ClientHeight = 640
+  ClientWidth = 960
   Position = ScreenCenter
   FormFactor.Width = 320
   FormFactor.Height = 480
@@ -11,65 +11,49 @@ object Form1: TForm1
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   DesignerMasterStyle = 0
-  object StringGrid1: TStringGrid
-    Align = Client
-    CanFocus = True
-    ClipChildren = True
-    Margins.Left = 10.000000000000000000
-    Margins.Top = 10.000000000000000000
-    Margins.Right = 10.000000000000000000
-    Margins.Bottom = 10.000000000000000000
-    Size.Width = 928.000000000000000000
-    Size.Height = 594.000000000000000000
+  object LayoutT: TLayout
+    Align = Top
+    Size.Width = 960.000000000000000000
+    Size.Height = 40.000000000000000000
     Size.PlatformDefault = False
-    TextSettings.Font.Family = #65325#65331' '#12468#12471#12483#12463
-    StyledSettings = [Size, Style, FontColor]
     TabOrder = 0
-    RowCount = 0
-    Viewport.Width = 924.000000000000000000
-    Viewport.Height = 569.000000000000000000
-    object StringColumn1: TStringColumn
-      Header = 'No.'
-      ReadOnly = True
-      Size.Width = 40.000000000000000000
+    object ButtonO: TButton
+      Align = Left
+      Margins.Left = 8.000000000000000000
+      Margins.Top = 8.000000000000000000
+      Margins.Bottom = 8.000000000000000000
+      Size.Width = 80.000000000000000000
+      Size.Height = 24.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 0
+      Text = 'Open...'
+      OnClick = ButtonOClick
     end
-    object StringColumn2: TStringColumn
-      Header = 'Grup'
-      ReadOnly = True
-      Size.Width = 40.000000000000000000
+    object LabelI: TLabel
+      Align = Client
+      Margins.Left = 12.000000000000000000
+      Margins.Right = 8.000000000000000000
+      Size.Width = 852.000000000000000000
+      Size.Height = 40.000000000000000000
+      Size.PlatformDefault = False
+      Text = ''
+      TabOrder = 1
     end
-    object StringColumn3: TStringColumn
-      Header = 'Elem'
-      ReadOnly = True
-      Size.Width = 40.000000000000000000
-    end
-    object StringColumn4: TStringColumn
-      Header = 'OriVR'
-      ReadOnly = True
-      Size.Width = 60.000000000000000000
-    end
-    object StringColumn5: TStringColumn
-      Header = 'ExpVR'
-      ReadOnly = True
-      Size.Width = 50.000000000000000000
-    end
-    object StringColumn6: TStringColumn
-      Header = 'Size'
-      ReadOnly = True
-      Size.Width = 70.000000000000000000
-    end
-    object StringColumn7: TStringColumn
-      Header = 'Data'
-      ReadOnly = True
-      Size.Width = 380.000000000000000000
-    end
-    object StringColumn8: TStringColumn
-      Header = 'Desc'
-      ReadOnly = True
-      Size.Width = 220.000000000000000000
-    end
-    object StringColumn9: TStringColumn
-      Visible = False
-    end
+  end
+  object TreeView1: TTreeView
+    Align = Client
+    Size.Width = 960.000000000000000000
+    Size.Height = 600.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 1
+    Viewport.Width = 956.000000000000000000
+    Viewport.Height = 596.000000000000000000
+    OnDragOver = TreeView1DragOver
+    OnDragDrop = TreeView1DragDrop
+  end
+  object OpenDialog1: TOpenDialog
+    Filter = 'DICOM files (*.dcm)|*.dcm|All files (*.*)|*.*'
+    Left = 904
+    Top = 56
   end
 end
