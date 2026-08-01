@@ -1,4 +1,4 @@
-﻿# DICOMLoader
+# DICOMLoader
 
 [English](../README.md) | [日本語](README.md)
 
